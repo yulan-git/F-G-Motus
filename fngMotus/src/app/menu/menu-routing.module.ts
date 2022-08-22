@@ -12,23 +12,23 @@ const routes: Routes = [
         loadChildren: () => import('../stats/stats.module').then(m => m.StatsPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'help',
+        loadChildren: () => import('../help/help.module').then(m => m.HelpPageModule)
       },
       {
         path: '',
-        redirectTo: '/menu/tab2',
+        redirectTo: '/menu/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/menu/tab2',
+    redirectTo: '/menu/home',
     pathMatch: 'full'
   }
 ];
