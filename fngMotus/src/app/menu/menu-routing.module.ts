@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { MenuPage } from './menu.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
-    component: TabsPage,
+    path: 'menu',
+    component: MenuPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'stats',
+        loadChildren: () => import('../stats/stats.module').then(m => m.StatsPageModule)
       },
       {
         path: 'tab2',
@@ -21,14 +21,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/menu/tab2',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/menu/tab2',
     pathMatch: 'full'
   }
 ];
@@ -36,4 +36,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class MenuPageRoutingModule { }
