@@ -6,4 +6,15 @@
 
 ion-content, ion-toolbar {
     --background: var(--ion-background-color, var(--ion-color-dark-shade))
+
+.logo{
+    padding-inline: 1.875rem !important;
+}
+.grid{
+    display: flex;
+    flex-direction: column;
+}
+app-letters-grid {
+    display: flex;
+    justify-content: center;
 }

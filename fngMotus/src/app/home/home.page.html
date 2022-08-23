@@ -9,9 +9,15 @@
 <ion-content class="--background--color" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Accueil</ion-title>
+      <ion-title class="logo" size="large">
+        <img src="../../assets/F&G Motus.svg" alt="Logo">
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+  
+  <div class="grid">
+    <app-letters-grid *ngFor="let letters of grid" [letter]="letters"></app-letters-grid>
+  </div>
   
   <div>
     <app-btn-keyboard style="width: 45px;" *ngFor="let btn of buttons" [btn]="btn"></app-btn-keyboard>
@@ -19,5 +25,4 @@
       <ion-icon name="backspace-outline"></ion-icon>
     </button>
   </div>
-
 </ion-content>

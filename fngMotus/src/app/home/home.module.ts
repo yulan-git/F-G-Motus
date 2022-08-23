@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
 import { HomePageRoutingModule } from './home-routing.module';
 import { BtnKeyboardComponent } from '../btn-keyboard/btn-keyboard.component';
+import { LettersGridComponent } from '../letters-grid/letters-grid.component';
+
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { BtnKeyboardComponent } from '../btn-keyboard/btn-keyboard.component';
     FormsModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage, BtnKeyboardComponent],
+  declarations: [HomePage, BtnKeyboardComponent,LettersGridComponent],
 })
 export class HomePageModule {}
