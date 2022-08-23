@@ -15,8 +15,5 @@ import { MenuPage } from './menu.page';
     MenuPageRoutingModule
   ],
   declarations: [MenuPage],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
 })
 export class MenuPageModule { }

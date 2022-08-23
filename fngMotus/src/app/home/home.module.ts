@@ -16,6 +16,6 @@ import { LettersGridComponent } from '../letters-grid/letters-grid.component';
     FormsModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage, BtnKeyboardComponent,LettersGridComponent],
+  declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent],
 })
 export class HomePageModule {}

@@ -5,14 +5,16 @@
 }
 
 ion-content, ion-toolbar {
-    --background: var(--ion-background-color, var(--ion-color-dark-shade))
-
+    --background: var(--ion-background-color, var(--ion-color-dark-shade));
+    margin-top: 3rem;
+}
 .logo{
     padding-inline: 1.875rem !important;
 }
 .grid{
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 app-letters-grid {
     display: flex;
