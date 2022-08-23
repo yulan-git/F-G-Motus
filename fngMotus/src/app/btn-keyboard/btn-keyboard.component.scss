@@ -1,0 +1,6 @@
+@use "../../theme/mixin.scss" as m;
+
+.keyboard {
+    @include m.keyboardBtn();
+}
+

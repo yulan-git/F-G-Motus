@@ -4,7 +4,7 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #44e283;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -74,13 +74,19 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+  --custom-dark-shadow: 0px 4px 4px #000;
+  --custom-pink-shadow: 0px 4px 10px #FC7ADF;
+  --custom-pink-color: #FC7ADF;
 }
+
+
 
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
    * -------------------------------------------
    */
+
 
   body {
     --ion-color-primary: #428cff;
@@ -233,4 +239,5 @@
 
     --ion-card-background: #1e1e1e;
   }
+  
 }
