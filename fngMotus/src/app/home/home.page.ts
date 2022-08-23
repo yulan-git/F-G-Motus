@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  letters = [];
+  grid = [];
+
+  constructor() {
+    for(let index=0; index<6; index++) {
+      this.grid.push(this.letters)
+    }
+
+  }
 
 }
