@@ -5,15 +5,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
+import { BtnKeyboardComponent } from '../btn-keyboard/btn-keyboard.component';
 import { LettersGridComponent } from '../letters-grid/letters-grid.component';
+
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
   ],
-  declarations: [HomePage, LettersGridComponent]
+  declarations: [HomePage, BtnKeyboardComponent,LettersGridComponent],
 })
 export class HomePageModule {}
