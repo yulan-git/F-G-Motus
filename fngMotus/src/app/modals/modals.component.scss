@@ -1,0 +1,34 @@
+@use "../../theme/mixin.scss" as m;
+
+ion-modal#modal {
+    --width: fit-content;
+    --min-width: 250px;
+    --height: fit-content;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#modal ion-icon {
+    margin-right: 6px;
+    width: 48px;
+    height: 48px;
+    padding: 4px 0;
+    color: #aaaaaa;
+}
+
+ion-modal#modal .wrapper {
+    margin-bottom: 10px;
+}
+
+.wrapper{
+    background-color: var(--ion-color-dark-shade) !important;
+}
+
+button{
+    @include m.modalBtn();
+}
+
+.block-btn {
+    display: flex;
+    justify-content: center;
+}
