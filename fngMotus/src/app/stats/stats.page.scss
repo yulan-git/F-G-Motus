@@ -1,0 +1,20 @@
+ion-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    p {
+        color: var(--ion-color-success-tint);
+    }
+}
+
+ul {
+    padding: 0;
+    li {
+        list-style: none;
+        text-align: center;
+        color: var(--ion-color-light-shade);
+    }
+}
+
+
