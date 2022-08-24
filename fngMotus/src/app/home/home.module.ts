@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { BtnKeyboardComponent } from '../btn-keyboard/btn-keyboard.component';
 import { LettersGridComponent } from '../letters-grid/letters-grid.component';
+import { ModalsComponent } from '../modals/modals.component';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { LettersGridComponent } from '../letters-grid/letters-grid.component';
     FormsModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent],
+  declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent, ModalsComponent],
 })
 export class HomePageModule {}
