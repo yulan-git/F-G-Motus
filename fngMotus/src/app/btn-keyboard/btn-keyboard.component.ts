@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-btn-keyboard',
@@ -7,8 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BtnKeyboardComponent implements OnInit {
   @Input() btn: string;
+  @Output() letter = new EventEmitter<string>()
   constructor() { }
 
   ngOnInit() {}
 
+  getLetterInput(letter: string){
+    this.letter.emit(letter)
+  }
 }
