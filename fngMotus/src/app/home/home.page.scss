@@ -2,6 +2,7 @@
 
 .keyboard {
     @include m.keyboardBtn();
+    color: var(--ion-color-success-tint);
 }
 
 ion-content, ion-toolbar {
@@ -19,4 +20,8 @@ ion-content, ion-toolbar {
 app-letters-grid {
     display: flex;
     justify-content: center;
+}
+
+.green{
+    background-color: green;
 }

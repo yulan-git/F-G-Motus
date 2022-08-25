@@ -8,13 +8,16 @@
   </ion-header>
   
   <div class="grid">
-    <app-letters-grid *ngFor="let letters of grid" [letter]="letters"></app-letters-grid>
+    <app-letters-grid *ngFor="let word of grid" [word]="word"></app-letters-grid>
   </div>
   
   <div>
-    <app-btn-keyboard style="width: 45px;" *ngFor="let btn of buttons" [btn]="btn"></app-btn-keyboard>
-    <button class="keyboard" [style.color]="'#42d77d'">
+    <button class="keyboard" (click)="deleteLetter()">
       <ion-icon name="backspace-outline"></ion-icon>
+    </button>
+    <app-btn-keyboard style="width: 45px;" *ngFor="let btn of buttons" [btn]="btn" (letter)="getLetter($event)"></app-btn-keyboard>
+    <button class="keyboard" (click)="validWord()">
+      Ent
     </button>
   </div>
 </ion-content>
