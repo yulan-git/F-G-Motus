@@ -28,10 +28,10 @@ export class HomePage implements OnInit {
   parties: number = 0;
   playedWords = [];
 
-  playedWords = {
-    key: "words",
-    value: ["WORD", "ABORD", "MOTUS", "ACIDE"]
-  };
+  // playedWords = {
+  //   key: "words",
+  //   value: ["WORD", "ABORD", "MOTUS", "ACIDE"]
+  // };
 
   constructor(private localStorage: LocalStorageService) {
     this.generateMatrice();
@@ -273,8 +273,9 @@ export class HomePage implements OnInit {
   async setListWords() {
     let newTab=[];
 
-    for (let i = 0; i < this.playedWords.value.length; i++){
-      newTab.push(this.playedWords.value[i]);
+    for (let i = 0; i < this.playedWords.length; i++){
+      newTab.push(this.playedWords[i]);
     }
     await this.localStorage.setWords('words', newTab);
+  }
 }
