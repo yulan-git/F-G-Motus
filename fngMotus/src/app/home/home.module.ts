@@ -14,7 +14,7 @@ import { LettersGridComponent } from '../letters-grid/letters-grid.component';
     IonicModule,
     CommonModule,
     FormsModule,
-    HomePageRoutingModule,
+    HomePageRoutingModule,    
   ],
   declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent],
 })
