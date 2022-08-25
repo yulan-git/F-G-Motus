@@ -7,13 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LettersGridComponent implements OnInit {
 
-  @Input() letter: string;
-  letters = [];
+  @Input() word;
 
   constructor() { 
-    for(let index=0; index<5; index++) {
-      this.letters.push("")
-    }
   }
 
   ngOnInit() {}

@@ -2,6 +2,7 @@
 
 .keyboard {
     @include m.keyboardBtn();
+    color: var(--ion-color-success-tint);
 }
 .grid{
     display: flex;
@@ -12,3 +13,4 @@ app-letters-grid {
     display: flex;
     justify-content: center;
 }
+
