@@ -4,14 +4,6 @@
     @include m.keyboardBtn();
     color: var(--ion-color-success-tint);
 }
-
-ion-content, ion-toolbar {
-    --background: var(--ion-background-color, var(--ion-color-dark-shade));
-    margin-top: 3rem;
-}
-.logo{
-    padding-inline: 1.875rem !important;
-}
 .grid{
     display: flex;
     flex-direction: column;
@@ -22,6 +14,3 @@ app-letters-grid {
     justify-content: center;
 }
 
-.green{
-    background-color: green;
-}

@@ -6,14 +6,14 @@ import   db   from '../../data/db.json';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
+
 export class HomePage implements OnInit {
   buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+  
   grid = [];
-
   try: number = 0;
   case = 0;
   goodPlace: number = 0;
-
   letter: string;
   wordRandom:any;
   wordToGuess: any[];
