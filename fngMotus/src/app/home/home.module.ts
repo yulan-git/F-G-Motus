@@ -17,7 +17,7 @@ import { ModalsComponent } from '../modals/modals.component';
     IonicModule,
     CommonModule,
     FormsModule,
-    HomePageRoutingModule,
+    HomePageRoutingModule,    
   ],
   declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent, ColorDirective, ModalsComponent],
 })

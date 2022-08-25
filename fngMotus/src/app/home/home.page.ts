@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import   db   from '../../data/db.json';
+import { LocalStorageService } from '../service/local-storage.service';
+import db from '../../data/db.json';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import   db   from '../../data/db.json';
 })
 
 export class HomePage implements OnInit {
-  buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+  buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
   
   grid = [];
   try: number = 0;
@@ -18,7 +19,7 @@ export class HomePage implements OnInit {
   wordRandom:any;
   wordToGuess: any[];
   wordsToPlay = [];
-  allWordsList = []
+  allWordsList = [];
   tryUser: number;
   isWin: boolean = false;
   color: string;
@@ -27,7 +28,12 @@ export class HomePage implements OnInit {
   parties: number = 0;
   playedWords = [];
 
-  constructor() {
+  playedWords = {
+    key: "words",
+    value: ["WORD", "ABORD", "MOTUS", "ACIDE"]
+  };
+
+  constructor(private localStorage: LocalStorageService) {
     this.generateMatrice();
   }
 
@@ -78,7 +84,6 @@ export class HomePage implements OnInit {
     this.goodPlace = 0;
   }
 
-  
   validWord() {
     let word = this.getUserWord(this.grid[this.try]);
     let row = this.grid[this.try];
@@ -256,5 +261,20 @@ export class HomePage implements OnInit {
       this.case = 0;
     }
 
+
   }
+  
+  // --- LOCALSTORAGE ---
+  
+  async ionViewWillEnter() {
+    this.setListWords();
+  }
+ 
+  async setListWords() {
+    let newTab=[];
+
+    for (let i = 0; i < this.playedWords.value.length; i++){
+      newTab.push(this.playedWords.value[i]);
+    }
+    await this.localStorage.setWords('words', newTab);
 }
