@@ -17,7 +17,7 @@ import { ModalDirective } from '../directives/modal.directive';
     IonicModule,
     CommonModule,
     FormsModule,
-    HomePageRoutingModule,
+    HomePageRoutingModule,    
   ],
   declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent, ColorDirective, ModalDirective],
 })

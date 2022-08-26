@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import   db   from '../../data/db.json';
+import db from '../../data/db.json';
+import { LocalStorageService } from '../service/local-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,8 @@ import   db   from '../../data/db.json';
   styleUrls: ['home.page.scss']
 })
 
-export class HomePage implements OnInit, OnChanges {
-  buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+export class HomePage implements OnInit {
+  buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
   
   grid = [];
   try: number = 0;
@@ -18,7 +19,7 @@ export class HomePage implements OnInit, OnChanges {
   wordRandom:any;
   wordToGuess: any[];
   wordsToPlay = [];
-  allWordsList = []
+  allWordsList = [];
   tryUser: number;
   isWon: boolean = false;
   isLose: boolean = false;
@@ -29,7 +30,7 @@ export class HomePage implements OnInit, OnChanges {
   playedWords = [];
   message: string;
 
-  constructor() {
+  constructor(private localStorage: LocalStorageService) {
     this.generateMatrice();
   }
 
@@ -39,12 +40,11 @@ export class HomePage implements OnInit, OnChanges {
   ngOnInit() {
     this.wordsToPlay = db.wordsToPlay;
     this.allWordsList = db.allWordList;
-    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)]
+    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)];
     this.wordToGuess = this.wordRandom.split('');
-    //this.countLetter = this.countLetterInWOrd(this.wordRandom.toString());
     console.log(this.wordToGuess);
   }
-
+  
   generateMatrice() {
     for (let grid = 0; grid < 6; grid++) {
       let cols = [];
@@ -56,11 +56,11 @@ export class HomePage implements OnInit, OnChanges {
       }
       this.grid.push(cols)
     }
-    console.log(this.grid);
   }
 
   countLetterInWord(str: any) {
-    var obj = {}
+    var obj = {};
+
     for (let x = 0, length = str.length; x < length; x++) {
       var l = str.charAt(x)
       obj[l] = (isNaN(obj[l]) ? 1 : obj[l] + 1);
@@ -75,13 +75,12 @@ export class HomePage implements OnInit, OnChanges {
       return false;
     }
   }
-
+  
   resetAllCounter() {
     this.try = 0;
     this.case = 0;
     this.goodPlace = 0;
   }
-
   
   validWord() {
     console.log(this.goodPlace);
@@ -91,7 +90,6 @@ export class HomePage implements OnInit, OnChanges {
     
     let word = this.getUserWord(this.grid[this.try]);
     let row = this.grid[this.try];    
-    
     
     if (this.try < 5) {
       //Si le mot existe dans la liste des mots francais 
@@ -140,26 +138,9 @@ export class HomePage implements OnInit, OnChanges {
       this.isLose = true;
     }
     this.try++;
-    this.case = 0;
+    this.case = 0; 
   }
   
-
-
-
-  private resetNegativeCountLetter(row: any, i: number) {
-    if (this.countLetter[row[i].letter] < 0) {
-      this.countLetter[row[i].letter] = 0;
-    }
-  }
-
-  private letterAtGoodPlace(row: any, index: number) {
-    if (row[index].letter == this.wordToGuess[index]) {
-      row[index].state = "match";
-      this.countLetter[row[index].letter]--;
-      this.goodPlace++;
-    }
-  }
-
   private letterIsExisted(word: string, index:number) {
       let letter = word[index];
       if (this.valueIsExisted(letter, this.wordRandom)) {
@@ -183,6 +164,9 @@ export class HomePage implements OnInit, OnChanges {
     return word;
   }
 
+// ----------------------------------------------------------------------
+// --- METHODES KEYBOARD
+
   putLetter(letter: string) {
     for (let i = 0; i < this.grid[this.try].length; i++) {
       this.grid[this.try][this.case].letter = letter;
@@ -205,6 +189,21 @@ export class HomePage implements OnInit, OnChanges {
     else if (this.case == 4) {
       this.case = 0;
     }
-
   }
+  
+  //-----------------------------------------------------------------------------------
+  // --- LOCALSTORAGE ---
+  
+  async init() {
+    this.setListWords();
+  }
+ 
+  async setListWords() {    
+    return await this.localStorage.setWords('words', this.playedWords);
+  }
+
+  async setParties() {    
+    return await this.localStorage.setParties('parties', this.parties);
+  }
+
 }

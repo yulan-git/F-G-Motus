@@ -28,12 +28,8 @@
   </section>
   <section>
     <h6>Derniers mots joués</h6>
-      <ul>
-        <li>MOTUS</li>
-        <li>ABUSE</li>
-        <li>ARGOT</li>
-        <li>CIRET</li>
-        <li>BAINS</li>
+      <ul *ngFor="let word of playedWords | keyvalue">
+        <li>{{ word.value }}</li>
       </ul>
   </section>
 </ion-content>
