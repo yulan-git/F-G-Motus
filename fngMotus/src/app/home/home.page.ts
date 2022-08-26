@@ -122,11 +122,13 @@ export class HomePage implements OnInit {
           console.log("le mot n'existe pas");
         }
       if (this.goodPlace == 5) {
-        console.log("GAGNE");
         this.isWon = true;
         this.wonGame++;
         this.parties++;
-        this.message = "Gagné 😀"
+        this.message = "Gagné 😀";
+        this.setParties();
+        this.setWonParties();
+        this.setTry();
       }
       this.playedWords.push(word);
     } else {
@@ -136,9 +138,13 @@ export class HomePage implements OnInit {
       console.log(this.message);
       this.resetAllCounter();
       this.isLose = true;
+      this.setParties();
     }
     this.try++;
-    this.case = 0; 
+    this.case = 0;
+    this.goodPlace = 0;
+    this.setListWords();
+    
   }
   
   private letterIsExisted(word: string, index:number) {
@@ -196,6 +202,9 @@ export class HomePage implements OnInit {
   
   async init() {
     this.setListWords();
+    this.setParties();
+    this.setWonParties();
+    this.setTry();
   }
  
   async setListWords() {    
@@ -204,6 +213,14 @@ export class HomePage implements OnInit {
 
   async setParties() {    
     return await this.localStorage.setParties('parties', this.parties);
+  }
+
+  async setWonParties() {
+    return await this.localStorage.setWonParties('wonGame', this.wonGame);
+  }
+
+  async setTry() { 
+    return await this.localStorage.setTry('try', this.try)
   }
 
 }
