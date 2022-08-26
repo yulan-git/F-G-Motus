@@ -21,15 +21,14 @@
     </button>
   </div>
 
-  <ion-modal id="modal" #modal trigger="open-modal" *ngIf="isLose" >
+  <ion-modal [isOpen]="isModalOpen" id="modal" *ngIf="isLose || isWon" >
     <ng-template>
       <div class="wrapper">
         <h6>{{message}}</h6>
         <div class="block-btn">
-          <button href="menu/home">Rejouer</button>
-          <!-- garde les tentatives -->
-          <button href="menu/home">Quitter</button>
-          <button href="menu/stats">Stats</button>
+          <ion-button class="modal-btn" (click)="setOpen(false)" href="menu/home">Rejouer</ion-button>
+          <ion-button class="modal-btn" (click)="setOpen(false)" href="menu/home">Quitter</ion-button>
+          <ion-button class="modal-btn" (click)="setOpen(false)" href="menu/stats">Stats</ion-button>
         </div>
       </div>
     </ng-template>
