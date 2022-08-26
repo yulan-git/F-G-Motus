@@ -10,8 +10,8 @@
 @mixin modalBtn() {
     width: 4.3rem;
     height: 2.5rem;
-    color: var(--custom-pink-color);
-    background-color: var(--ion-color-dark);
+    color: var(--ion-color-success-tint);
+    --background: var(--ion-color-dark);
     border-radius: 5px;
     box-shadow: var(--custom-dark-shadow);
     margin: 3px;
