@@ -6,13 +6,12 @@ import { AfterViewInit, Directive, ElementRef, Input, OnChanges } from '@angular
 export class ModalDirective implements OnChanges {
 
   @Input() isLose: boolean;
+  @Input() isWon: boolean;
 
   constructor(private el: ElementRef) {
     
   }
   ngOnChanges(): void {
-    console.log(this.el.nativeElement.childNodes);
     
-    this.el.nativeElement.childNodes.style.display = "block";
   }
 }

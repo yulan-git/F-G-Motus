@@ -30,16 +30,22 @@ ion-modal#modal ion-icon {
     color: #aaaaaa;
 }
 
-ion-modal#modal .wrapper {
+
+ion-modal#modal {
     margin-bottom: 10px;
 }
 
 .wrapper {
-    background-color: var(--ion-color-dark-shade) !important;
+    background: var(--ion-color-dark-shade);
+    border: solid 1px var(--ion-color-dark-shade);
 }
 
-button {
+.modal-btn {
     @include m.modalBtn();
+}
+
+ion-button.modal-btn:hover{
+    --background-hover: var(--ion-color-dark-tint, var(--ion-color-success-tint));
 }
 
 .block-btn {
