@@ -16,12 +16,12 @@ export class StatsPage implements OnInit{
    this.getlistWords();
   }
 
-  getlistWords() {
-    this.localStorage.getWords('words').then((data: any) => {
-      this.playedWords = data.value.split(',');
-    })
+  async getlistWords() {
+    const { value } = await this.localStorage.getWords()
+    this.playedWords = value.split(',');
   }
- 
- 
 
+  async clearStorage() {
+    await this.localStorage.clearStorage();
+  }
 }

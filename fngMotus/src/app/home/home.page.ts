@@ -28,10 +28,6 @@ export class HomePage implements OnInit {
   parties: number = 0;
   playedWords = [];
 
-  // playedWords = {
-  //   key: "words",
-  //   value: ["WORD", "ABORD", "MOTUS", "ACIDE"]
-  // };
 
   constructor(private localStorage: LocalStorageService) {
     this.generateMatrice();
@@ -40,29 +36,30 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.wordsToPlay = db.wordsToPlay;
     this.allWordsList = db.allWordList;
-    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)]
+    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)];
     this.wordToGuess = this.wordRandom.split('');
-    this.countLetter = this.countLetterInWOrd(this.wordRandom.toString());
+    this.countLetter = this.countLetterInWord(this.wordRandom.toString()); 
     console.log(this.wordToGuess);
   }
-
+  
   generateMatrice() {
     for (let grid = 0; grid < 6; grid++) {
       let cols = [];
       for (let col = 0; col < 5; col++) {
         cols.push({
           letter: "",
-          state: "", // "notPresent", "match",   "present" 
+          state: "",
         })
       }
       this.grid.push(cols)
     }
-    console.log(this.grid);
+    //console.log(this.grid);
   }
 
-  countLetterInWOrd(str: any) {
-    console.log(str);
-    var obj = {}
+  countLetterInWord(str: any) {
+    //console.log(str);
+    var obj = {};
+    
     for (let x = 0, length = str.length; x < length; x++) {
       var l = str.charAt(x)
       obj[l] = (isNaN(obj[l]) ? 1 : obj[l] + 1);
@@ -77,17 +74,17 @@ export class HomePage implements OnInit {
       return false;
     }
   }
-
+  
   resetAllCounter() {
     this.try = 0;
     this.case = 0;
     this.goodPlace = 0;
   }
-
+  
   validWord() {
     let word = this.getUserWord(this.grid[this.try]);
     let row = this.grid[this.try];
-
+    
     if (this.try < 7) {
       //Si le mot existe dans la liste des mots francais 
       if (this.valueIsExisted(word, this.allWordsList)) {   
@@ -95,19 +92,19 @@ export class HomePage implements OnInit {
         if (this.try > 0) { 
           let precWord = this.getUserWord(this.grid[this.try - 1]);
           let precRow = this.grid[this.try-1];
-
+          
           for (let i = 0; i < 5; i++) {
             //Si countLetter négatif, on le remet à zéro
             this.resetNegativeCountLetter(row, i);
             // si la lettre existe dans le mot 
             if (this.letterIsExisted(word, i)) {
-                if (this.letterIsExisted(precWord, i)) { 
-                  
-                  //Si countLetter négatif, on le remet à zéro
-                  this.resetNegativeCountLetter(row, i);
-                  
-                  this.countLetter[row[i].letter] = this.countLetter[precRow[i].letter]
-                  
+              if (this.letterIsExisted(precWord, i)) { 
+                
+                //Si countLetter négatif, on le remet à zéro
+                this.resetNegativeCountLetter(row, i);
+                
+                this.countLetter[row[i].letter] = this.countLetter[precRow[i].letter]
+                
                   if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] > 0) {
                     row[i].state = "match";
                     this.countLetter[row[i].letter]--;
@@ -150,15 +147,15 @@ export class HomePage implements OnInit {
                       console.log("lettre n'existe pas dans le mot ")
                       row[i].state = "notPresent"
                     }
+                  }
+                } else {
+                  console.log("lettre n'existe pas dans le mot ")
+                  row[i].state = "notPresent"
                 }
+              }
             } else {
-              console.log("lettre n'existe pas dans le mot ")
-              row[i].state = "notPresent"
-            }
-          }
-        } else {
-            for (let i = 0; i < 5; i++) {
-              //Si countLetter négatif, on le remet à zéro
+              for (let i = 0; i < 5; i++) {
+                //Si countLetter négatif, on le remet à zéro
               this.resetNegativeCountLetter(row, i);
 
               // si la lettre existe dans le mot 
@@ -183,23 +180,22 @@ export class HomePage implements OnInit {
                 console.log("lettre n'existe pas dans le mot ")
                   row[i].state = "notPresent"
                 }
+              }
             }
+          } else {
+            console.log("le mot n'existe pas");
+            
           }
-        } else {
-          console.log("le mot n'existe pas");
-          
-        }
-      if (this.goodPlace == 5) {
-          console.log("GAGNE");
-        this.wonGame++;
-        this.parties++;
-      }
-      this.playedWords.push(word);
+          if (this.goodPlace == 5) {
+            this.wonGame++;
+            this.parties++;
+          }
+          this.playedWords.push(word);
+          console.log(this.playedWords);
+          this.setListWords();
     } else {
-      console.log("PERDU")
       this.resetAllCounter();
       this.parties++;
-      // Affichage modale "PERDU"
     }
     this.try++; 
     this.case = 0;
@@ -224,7 +220,6 @@ export class HomePage implements OnInit {
       if (this.valueIsExisted(letter, this.wordRandom)) {
         return true;
       } else {
-        console.log("lettre not in word");
         return false;
       }
   }
@@ -264,18 +259,19 @@ export class HomePage implements OnInit {
 
   }
   
+  //-----------------------------------------------------------------------------------
   // --- LOCALSTORAGE ---
   
-  async ionViewWillEnter() {
+  async init() {
     this.setListWords();
   }
  
-  async setListWords() {
-    let newTab=[];
-
-    for (let i = 0; i < this.playedWords.length; i++){
-      newTab.push(this.playedWords[i]);
-    }
-    await this.localStorage.setWords('words', newTab);
+  async setListWords() {    
+    return await this.localStorage.setWords('words', this.playedWords);
   }
+
+  async setParties() {    
+    return await this.localStorage.setParties('parties', this.parties);
+  }
+
 }
