@@ -8,7 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { BtnKeyboardComponent } from '../btn-keyboard/btn-keyboard.component';
 import { LettersGridComponent } from '../letters-grid/letters-grid.component';
 import { ColorDirective } from '../directives/color.directive';
-import { ModalsComponent } from '../modals/modals.component';
+import { ModalDirective } from '../directives/modal.directive';
 
 
 
@@ -19,6 +19,6 @@ import { ModalsComponent } from '../modals/modals.component';
     FormsModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent, ColorDirective, ModalsComponent],
+  declarations: [HomePage, BtnKeyboardComponent, LettersGridComponent, ColorDirective, ModalDirective],
 })
 export class HomePageModule {}

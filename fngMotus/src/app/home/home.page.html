@@ -16,9 +16,22 @@
       <ion-icon name="backspace-outline"></ion-icon>
     </button>
     <app-btn-keyboard style="width: 45px;" *ngFor="let btn of buttons" [btn]="btn" (letter)="getLetter($event)"></app-btn-keyboard>
-    <button class="keyboard" (click)="validWord()">
+    <button id="open-modal" class="keyboard" (click)="validWord()">
       Ent
     </button>
   </div>
-  <app-modals></app-modals>
+
+  <ion-modal id="modal" #modal trigger="open-modal" *ngIf="isLose" >
+    <ng-template>
+      <div class="wrapper">
+        <h6>{{message}}</h6>
+        <div class="block-btn">
+          <button href="menu/home">Rejouer</button>
+          <!-- garde les tentatives -->
+          <button href="menu/home">Quitter</button>
+          <button href="menu/stats">Stats</button>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>

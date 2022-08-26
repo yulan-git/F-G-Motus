@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import   db   from '../../data/db.json';
 
 @Component({
@@ -7,7 +7,7 @@ import   db   from '../../data/db.json';
   styleUrls: ['home.page.scss']
 })
 
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnChanges {
   buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
   
   grid = [];
@@ -20,15 +20,20 @@ export class HomePage implements OnInit {
   wordsToPlay = [];
   allWordsList = []
   tryUser: number;
-  isWin: boolean = false;
+  isWon: boolean = false;
+  isLose: boolean = false;
   color: string;
   countLetter: Object;
   wonGame: number = 0;
   parties: number = 0;
   playedWords = [];
+  message: string;
 
   constructor() {
     this.generateMatrice();
+  }
+
+  ngOnChanges() {
   }
 
   ngOnInit() {
@@ -36,7 +41,7 @@ export class HomePage implements OnInit {
     this.allWordsList = db.allWordList;
     this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)]
     this.wordToGuess = this.wordRandom.split('');
-    this.countLetter = this.countLetterInWOrd(this.wordRandom.toString());
+    //this.countLetter = this.countLetterInWOrd(this.wordRandom.toString());
     console.log(this.wordToGuess);
   }
 
@@ -46,7 +51,7 @@ export class HomePage implements OnInit {
       for (let col = 0; col < 5; col++) {
         cols.push({
           letter: "",
-          state: "", // "notPresent", "match",   "present" 
+          state: "",
         })
       }
       this.grid.push(cols)
@@ -54,8 +59,7 @@ export class HomePage implements OnInit {
     console.log(this.grid);
   }
 
-  countLetterInWOrd(str: any) {
-    console.log(str);
+  countLetterInWord(str: any) {
     var obj = {}
     for (let x = 0, length = str.length; x < length; x++) {
       var l = str.charAt(x)
@@ -80,126 +84,68 @@ export class HomePage implements OnInit {
 
   
   validWord() {
+    console.log(this.goodPlace);
+    console.log(this.try);
+    console.log(this.isWon);
+    console.log(this.isLose);
+    
     let word = this.getUserWord(this.grid[this.try]);
-    let row = this.grid[this.try];
-
-    if (this.try < 7) {
+    let row = this.grid[this.try];    
+    
+    
+    if (this.try < 5) {
       //Si le mot existe dans la liste des mots francais 
       if (this.valueIsExisted(word, this.allWordsList)) {   
-        //Si un mot précédent existe 
-        if (this.try > 0) { 
-          let precWord = this.getUserWord(this.grid[this.try - 1]);
-          let precRow = this.grid[this.try-1];
-
-          for (let i = 0; i < 5; i++) {
-            //Si countLetter négatif, on le remet à zéro
-            this.resetNegativeCountLetter(row, i);
-            // si la lettre existe dans le mot 
-            if (this.letterIsExisted(word, i)) {
-                if (this.letterIsExisted(precWord, i)) { 
-                  
-                  //Si countLetter négatif, on le remet à zéro
-                  this.resetNegativeCountLetter(row, i);
-                  
-                  this.countLetter[row[i].letter] = this.countLetter[precRow[i].letter]
-                  
-                  if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] > 0) {
-                    row[i].state = "match";
-                    this.countLetter[row[i].letter]--;
-                    this.goodPlace++;
-                  } else if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                    row[i].state = "match";
-                    this.countLetter[row[i].letter] = 0;
-                    this.goodPlace++;
-                  } else if ((row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] > 0)) {
-                    row[i].state = "present";
-                    this.countLetter[row[i].letter]--;
-                  } else if (row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                    row[i].state = "present"
-                  } else {
-                    row[i].state = "notPresent"
-                  }
-                  
-                } else {
-                    //Si countLetter négatif, on le remet à zéro
-                    this.resetNegativeCountLetter(row, i);
-                    // si la lettre existe dans le mot 
-                    if (this.letterIsExisted(word, i)) {
-                      if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] > 0) {
-                        row[i].state = "match";
-                        this.countLetter[row[i].letter]--;
-                        this.goodPlace++;
-                      } else if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                        row[i].state = "match";
-                        this.countLetter[row[i].letter] = 0;
-                        this.goodPlace++;
-                      } else if ((row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] > 0)) {
-                        row[i].state = "present";
-                        this.countLetter[row[i].letter]--;
-                      } else if (row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                        row[i].state = "notPresent"
-                      } else {
-                        row[i].state = "notPresent"
-                      }
-                    } else {
-                      console.log("lettre n'existe pas dans le mot ")
-                      row[i].state = "notPresent"
-                    }
-                }
-            } else {
-              console.log("lettre n'existe pas dans le mot ")
-              row[i].state = "notPresent"
+        let countLetter = this.countLetterInWord(this.wordRandom);
+        for (let i = 0; i < 5; i++) {
+          
+          // si la lettre existe dans le mot 
+          if (this.letterIsExisted(word, i)) {
+            let letter = this.getLetterWorld(this.wordRandom, i)
+            if (row[i].letter == this.wordToGuess[i]) {
+                  row[i].state = "match";
+                  countLetter[this.wordToGuess[i]] = countLetter[this.wordToGuess[i]]-1;
+                  this.goodPlace++;
             }
-          }
-        } else {
-            for (let i = 0; i < 5; i++) {
-              //Si countLetter négatif, on le remet à zéro
-              this.resetNegativeCountLetter(row, i);
-
-              // si la lettre existe dans le mot 
-              if (this.letterIsExisted(word, i)) {
-                if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] > 0) {
-                  row[i].state = "match";
-                  this.countLetter[row[i].letter]--;
-                  this.goodPlace++;
-                } else if (row[i].letter == this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                  row[i].state = "match";
-                  this.countLetter[row[i].letter] = 0;
-                  this.goodPlace++;
-                } else if ((row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] > 0)) {
-                  row[i].state = "present";
-                  this.countLetter[row[i].letter]--;
-                } else if (row[i].letter != this.wordToGuess[i] && this.countLetter[row[i].letter] == 0) {
-                  row[i].state = "notPresent"
-                } else {
-                  row[i].state = "notPresent"
-                }
+            if (row[i].letter != this.wordToGuess[i]) {
+              if (countLetter[row[i].letter] > 0) {
+                row[i].state = "present"
+                countLetter[row[i].letter] = countLetter[this.wordToGuess[i]] - 1;
+              } else if (countLetter[row[i].letter] == 0) {
+                row[i].state = "notPresent";
+              }
+            }
               } else {
                 console.log("lettre n'existe pas dans le mot ")
-                  row[i].state = "notPresent"
+                row[i].state = "notPresent"
                 }
             }
-          }
         } else {
           console.log("le mot n'existe pas");
-          
         }
       if (this.goodPlace == 5) {
-          console.log("GAGNE");
+        console.log("GAGNE");
+        this.isWon = true;
         this.wonGame++;
         this.parties++;
+        this.message = "Gagné 😀"
       }
       this.playedWords.push(word);
     } else {
-      console.log("PERDU")
-      this.resetAllCounter();
+      console.log(this.try);
       this.parties++;
-      // Affichage modale "PERDU"
+      this.message = "Perdu 😓"
+      console.log(this.message);
+      this.resetAllCounter();
+      this.isLose = true;
     }
-    this.try++; 
+    this.try++;
     this.case = 0;
   }
   
+
+
+
   private resetNegativeCountLetter(row: any, i: number) {
     if (this.countLetter[row[i].letter] < 0) {
       this.countLetter[row[i].letter] = 0;
@@ -218,10 +164,14 @@ export class HomePage implements OnInit {
       let letter = word[index];
       if (this.valueIsExisted(letter, this.wordRandom)) {
         return true;
-      } else {
-        console.log("lettre not in word");
-        return false;
       }
+  }
+
+  private getLetterWorld(word: string, index: number) {
+    let letter = word[index];
+    if (this.valueIsExisted(letter, this.wordRandom)) {
+      return letter;
+    }
   }
 
   private getUserWord(grid:any) {
