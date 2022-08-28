@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
   
   grid = [];
   try: number = 0;
+  tries: number = 0;
   case = 0;
   goodPlace: number = 0;
   letter: string;
@@ -20,33 +21,34 @@ export class HomePage implements OnInit {
   wordToGuess: any[];
   wordsToPlay = [];
   allWordsList = [];
-  tryUser: number;
   isWon: boolean = false;
   isLose: boolean = false;
   color: string;
   countLetter: Object;
   wonGame: number = 0;
-  parties: number = 1;
+  parties: number = 0;
+  loseGame: number = 0
+  foundWord:string;
   playedWords = [];
   message: string;
   isModalOpen = false;
+  isStatsOpen = false;
   letterInGoodPlace: boolean;
+  stats = {allGames: 0, wonGames: 0, loseGames: 0, foundWord: "", playedWords: [], try: 0, tryAverage: 0};
+  storageStats: any
+  tryAverage: number;
 
   constructor(private localStorage: LocalStorageService) {
     this.generateMatrice();
   }
-
-  ngOnChanges() {
-  }
-
+  
   ngOnInit() {
     this.wordsToPlay = db.wordsToPlay;
     this.allWordsList = db.allWordList;
-    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)];
-    this.wordToGuess = this.wordRandom.split('');
+    this.generateWordTofound();
     console.log(this.wordToGuess);
   }
-  
+
   generateMatrice() {
     for (let grid = 0; grid < 6; grid++) {
       let cols = [];
@@ -60,9 +62,13 @@ export class HomePage implements OnInit {
     }
   }
 
+  private generateWordTofound() {
+    this.wordRandom = this.wordsToPlay[Math.floor(Math.random() * this.wordsToPlay.length)];
+    this.wordToGuess = this.wordRandom.split('');
+  }
+
   countLetterInWord(str: any) {
     var obj = {};
-
     for (let x = 0, length = str.length; x < length; x++) {
       var l = str.charAt(x)
       obj[l] = (isNaN(obj[l]) ? 1 : obj[l] + 1);
@@ -78,22 +84,25 @@ export class HomePage implements OnInit {
     }
   }
   
-  resetAllCounter() {
+  resetCounterForNewGame() {
     this.try = 0;
     this.case = 0;
     this.goodPlace = 0;
   }
   
   validWord() {
-  console.log(this.goodPlace);
-  console.log(this.try);
-  console.log(this.isWon);
-  console.log(this.isLose);
-
-  let word = this.getUserWord(this.grid[this.try]);
-  let row = this.grid[this.try];    
-  this.goodPlace = 0;
-
+    let word = this.getUserWord(this.grid[this.try]);
+    let row = this.grid[this.try];   
+    console.log(this.tries);
+    this.goodPlace = 0;
+    this.tries++;
+    console.log(this.tries);
+    this.try++;
+    this.case = 0;
+    
+    this.loseGame = this.parties - this.wonGame;
+    this.foundWord = word
+    
   if (this.try < 6) {
     //Si le mot existe dans la liste des mots francais 
     if (this.valueIsExisted(word, this.allWordsList)) {
@@ -117,30 +126,33 @@ export class HomePage implements OnInit {
     } else {
       console.log("le mot n'existe pas");
     }
+    this.playedWords.push(word);
   }
-  this.playedWords.push(word);
 
-  if (this.goodPlace == 5) {
-    this.setOpen(true)
+    if (this.goodPlace == 5) {
     this.isWon = true;
     this.wonGame++;
-    this.parties++;
     this.message = "Gagné 😀";
-    this.setWonParties();
-    this.setTry();
-  } else if((this.goodPlace < 5 && this.try == 5) || this.try > 5){
-    this.parties++;
-    this.message = "Perdu 😓"
-    this.resetAllCounter();
-    this.isLose = true;
     this.setOpen(true)
-  } 
-  this.try++;
-  this.case = 0;
-  this.setListWords();
-  this.setParties();
- }
+    this.parties++;
+      this.tryAverage = this.countTryAverage();
+  } else if((this.goodPlace < 5 && this.try == 6) || this.try > 6){
+    this.message = "Perdu 😓"
+    this.resetCounterForNewGame();
+    this.isLose = true;
+    this.loseGame++;
+    this.setOpen(true)
+    this.parties++;
+      this.tryAverage = this.countTryAverage();
+    }
+    
+    this.setStorage();
+}
 
+  countTryAverage() {
+    return Math.round((this.tries/this.parties));
+  }
+  
   private letterNotAtTheGoodPlace(countLetter: {}, row: any, i: number) {
     if (countLetter[row[i].letter] > 0) {
       row[i].state = "present";
@@ -186,6 +198,28 @@ export class HomePage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
+  seeStats(isOpen: boolean) {
+    this.isStatsOpen = isOpen;
+  }
+
+  playAgain() {
+    this.setOpen(false);
+    this.resetCounterForNewGame();
+    this.resetGame();
+  }
+
+  private resetGame() {
+    this.grid = [];
+    this.generateMatrice();
+    this.generateWordTofound();
+    console.log(this.wordToGuess);
+  }
+
+  resetStats() {
+    this.setOpen(false);
+
+  }
+
 // ----------------------------------------------------------------------
 // --- METHODES KEYBOARD
 
@@ -216,27 +250,23 @@ export class HomePage implements OnInit {
   //-----------------------------------------------------------------------------------
   // --- LOCALSTORAGE ---
   
-  async init() {
-    this.setListWords();
-    this.setParties();
-    this.setWonParties();
-    this.setTry();
-  }
- 
-  async setListWords() {    
-    return await this.localStorage.setWords('words', this.playedWords);
-  }
-
-  async setParties() {    
-    return await this.localStorage.setParties('parties', this.parties);
+  setStorage() {
+    this.localStorage.setObject('stats', {
+      allGames: this.parties,
+      wonGames: this.wonGame,
+      loseGames: this.loseGame,
+      foundWord: this.foundWord,
+      playedWords: this.playedWords,
+      try: this.try,
+      tryAverage: this.tryAverage
+    });
   }
 
-  async setWonParties() {
-    return await this.localStorage.setWonParties('wonGame', this.wonGame);
-  }
-
-  async setTry() { 
-    return await this.localStorage.setTry('try', this.try)
+  getStorage() {
+    this.localStorage.getObject('stats').then((data: any) => {
+      this.stats = data;
+    });
+    return this.stats
   }
 
 }

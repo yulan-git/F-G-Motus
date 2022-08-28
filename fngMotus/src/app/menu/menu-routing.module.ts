@@ -7,10 +7,10 @@ const routes: Routes = [
     path: 'menu',
     component: MenuPage,
     children: [
-      {
-        path: 'stats',
-        loadChildren: () => import('../stats/stats.module').then(m => m.StatsPageModule)
-      },
+      // {
+      //   path: 'stats',
+      //   loadChildren: () => import('../stats/stats.module').then(m => m.StatsPageModule)
+      // },
       {
         path: 'home',
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)

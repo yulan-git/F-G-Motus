@@ -8,13 +8,16 @@ ion-col {
     }
 }
 
-ul {
-    padding: 0;
-    li {
-        list-style: none;
-        text-align: center;
-        color: var(--ion-color-light-shade);
-    }
+.word{
+    text-align: center;
+    color: var(--ion-color-light-shade);
+    padding-right: 5px;
+}
+
+.words{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
