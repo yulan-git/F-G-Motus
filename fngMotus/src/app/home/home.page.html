@@ -8,6 +8,7 @@
   </ion-header>
   
   <div class="grid">
+    <div id="not-existed" *ngIf="notExisted">{{notExisted}}</div>
     <app-letters-grid *ngFor="let word of grid" [word]="word"></app-letters-grid>
   </div>
   
