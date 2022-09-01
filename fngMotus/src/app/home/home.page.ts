@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import db from '../../data/db.json';
 import { LocalStorageService } from '../service/local-storage.service';
 
@@ -38,9 +39,8 @@ export class HomePage implements OnInit {
   storageStats: any
   tryAverage: number;
   remainingwordToPlayed = []
-  notExisted: string
 
-  constructor(private localStorage: LocalStorageService,) {
+  constructor(private localStorage: LocalStorageService, public toastCtrl: ToastController) {
     this.generateMatrice();
   }
 
@@ -124,6 +124,7 @@ export class HomePage implements OnInit {
               row[i].state = "notPresent"
             }
           } else {
+            
             console.log("lettre n'existe pas dans le mot ")
             row[i].state = "notPresent"
           }
@@ -131,6 +132,7 @@ export class HomePage implements OnInit {
         this.playedWords.push(word);
         this.message = ""
       } else {
+        this.presentToast();
         this.resetRow(row);
       }
 
@@ -168,7 +170,6 @@ export class HomePage implements OnInit {
   }
 
   private resetRow(row: any) {
-    this.notExisted = "Ce mot n'existe pas";
     this.try--;
     this.case = 0;
     for (let i = 0; i < row.length; i++) {
@@ -232,6 +233,17 @@ export class HomePage implements OnInit {
     this.isStatsOpen = isOpen;
   }
 
+  async presentToast() {
+    let toast = await this.toastCtrl.create({
+      message: "Ce mot n'existe pas",
+      duration: 3000,
+      position: 'top',
+      cssClass: 'not-existed'
+    });
+
+    await toast.present();
+  }
+
   playAgain() {
     this.setOpen(false);
     this.resetCounterForNewGame();
@@ -243,10 +255,6 @@ export class HomePage implements OnInit {
     this.generateMatrice();
     this.generateWordTofound();
     console.log(this.wordToGuess);
-  }
-
-  resetStats() {
-    this.setOpen(false);
   }
 
   // ----------------------------------------------------------------------

@@ -70,9 +70,6 @@ ion-button.modal-btn:hover{
     border-radius: 2px;
 }
 
-#not-existed{
-    text-align: center;
-    font-style: italic;
-    font-weight: bold;
-    color: var(--ion-color-success-tint);
+.not-existed {
+    --color: #fff;
 }
