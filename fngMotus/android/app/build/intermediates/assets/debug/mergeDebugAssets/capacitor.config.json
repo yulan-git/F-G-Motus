@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "fngMotus",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

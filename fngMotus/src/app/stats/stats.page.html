@@ -1,39 +1,36 @@
-<section>
-    <h6>Statistiques</h6>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <div class="circle">{{storageStats.allGames}}</div>
-          <p>Parties jouées</p>
-        </ion-col>
-        <ion-col>
-          <div class="circle">{{storageStats.wonGames}}</div>
-          <p>Parties gagnées</p>
-        </ion-col>
-        <ion-col>
-          <div class="circle">{{storageStats.loseGames}}</div>
-          <p>Parties perdus</p>
-        </ion-col>
-        <ion-col>
-          <div class="circle">{{storageStats.try}}</div>
-          <p>Tentative dernière partie</p>
-        </ion-col>
-        <ion-col>
-          <div class="circle">{{storageStats.tryAverage}}</div>
-          <p>Moyenne tentatives</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-</section>
-<section>
-  <h6>Derniers mots joués</h6>
-  <div class="words">
-    <p class="word" *ngFor="let word of storageStats.playedWords">  {{ word }}  </p>
-  </div>
-</section>
-<section>
-  <h6>Mot à trouver</h6>
-  <p class="word">
-    {{ storageStats.foundWord }}
-  </p>
-</section>
+<ion-content class="bg" [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title class="logo" size="large">
+        <img src="../../assets/F&G Motus.svg" alt="Logo">
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <section>
+      <h6>Statistiques</h6>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="circle">{{ parties.value }}</div>
+            <p>Parties jouées</p>
+          </ion-col>
+          <ion-col>
+            <div class="circle">{{ wonGame.value 
+              }}</div>
+            <p>Parties gagnées</p>
+          </ion-col>
+          <ion-col>
+            <div class="circle">{{ try.value }}</div>
+            <p>Moyenne de tentatives</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </section>
+  <section>
+    <h6>Derniers mots joués</h6>
+      <ul *ngFor="let word of playedWords | keyvalue">
+        <li>{{ word.value }}</li>
+      </ul>
+  </section>
+</ion-content>

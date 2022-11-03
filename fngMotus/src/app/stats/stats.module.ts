@@ -14,7 +14,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     StatsPageRoutingModule,
     IonicStorageModule.forRoot()
   ],
-  exports: [],
-  declarations: []
+  declarations: [StatsPage]
 })
 export class StatsPageModule {}

@@ -1,7 +1,5 @@
 {
   "name": "fngMotus",
-  "integrations": {
-    "capacitor": {}
-  },
+  "integrations": {},
   "type": "angular"
 }

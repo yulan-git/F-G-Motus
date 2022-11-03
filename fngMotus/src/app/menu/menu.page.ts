@@ -6,9 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['menu.page.scss']
 })
 export class MenuPage {
-isStatsOpen: boolean = false;
+
   constructor() { }
-  seeStats(isOpen: boolean) {
-    this.isStatsOpen = isOpen;
-  }
+
 }

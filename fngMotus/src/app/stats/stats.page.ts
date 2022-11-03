@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../service/local-storage.service';
 
 @Component({
@@ -7,19 +7,44 @@ import { LocalStorageService } from '../service/local-storage.service';
   styleUrls: ['stats.page.scss']
 })
 export class StatsPage implements OnInit{
-  storageStats: any;
+
+  playedWords: [] = [];
+  parties: any;
+  wonGame: any;
+  try: any;
 
   constructor(private localStorage: LocalStorageService) {}
 
-  ngOnInit(): void {
-    this.storageStats = this.getStorage()
+  ngOnInit() {
+   this.setWords();
+   this.setParties();
+   this.setWonParties();
+   this.setTry();
   }
 
-  getStorage() {
-    this.localStorage.getObject('stats').then((data: any) => {
-      this.storageStats = data;
-    });
-    return this.storageStats
+  async setWords() {
+    const { value } = await this.localStorage.getWords()
+    this.playedWords = value.split(',');
+  }
+
+  async setParties() {
+    let value = await this.localStorage.getParties()
+    this.parties = value
+  }
+
+  async setWonParties() {
+    let value = await this.localStorage.getWonParties()
+    this.wonGame = value    
+  }
+
+  async setTry() {
+    let value = await this.localStorage.getTry()
+    //calcul average
+    this.try = value
+    
+ 
+    
+    
   }
 
   async clearStorage() {
