@@ -1,5 +1,8 @@
 @use "../../theme/mixin.scss" as m;
 
+.grid-keyboard {
+    padding: 1rem 2.3rem;
+}
 .keyboard {
     @include m.keyboardBtn();
     color: var(--ion-color-success-tint);
@@ -7,7 +10,7 @@
 .grid{
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin: 2rem 0;
 }
 app-letters-grid {
     display: flex;
@@ -30,9 +33,6 @@ ion-modal#modal ion-icon {
     color: #aaaaaa;
 }
 
-ion-modal#modal .wrapper {
-    margin-bottom: 10px;
-}
 
 .wrapper {
     background-color: var(--ion-color-dark-shade) !important;
@@ -45,4 +45,7 @@ button {
 .block-btn {
     display: flex;
     justify-content: center;
+    a {
+        padding: 1.5rem;
+    }
 }

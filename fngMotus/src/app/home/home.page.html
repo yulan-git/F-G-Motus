@@ -1,17 +1,13 @@
 <ion-content class="bg" [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title class="logo" size="large">
-        <img src="../../assets/F&G Motus.svg" alt="Logo">
-      </ion-title>
-    </ion-toolbar>
+  <ion-header class="bg container-logo">
+    <img src="../../assets/F&G Motus.svg" alt="Logo">
   </ion-header>
   
   <div class="grid">
     <app-letters-grid *ngFor="let word of grid" [word]="word"></app-letters-grid>
   </div>
   
-  <div>
+  <div class="grid-keyboard">
     <button class="keyboard" (click)="deleteLetter()">
       <ion-icon name="backspace-outline"></ion-icon>
     </button>
@@ -26,10 +22,10 @@
       <div class="wrapper">
         <h6>{{message}}</h6>
         <div class="block-btn">
-          <button href="menu/home">Rejouer</button>
+          <a href="menu/home">Rejouer</a>
           <!-- garde les tentatives -->
-          <button href="menu/home">Quitter</button>
-          <button href="menu/stats">Stats</button>
+          <a href="menu/home">Quitter</a>
+          <a href="menu/stats">Stats</a>
         </div>
       </div>
     </ng-template>

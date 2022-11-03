@@ -9,7 +9,11 @@ import { LocalStorageService } from '../service/local-storage.service';
 })
 
 export class HomePage implements OnInit {
-  buttons = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+  buttons = [
+    "A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", 
+    "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M",
+    "W", "X", "C", "V", "B", "N"
+  ];
   
   grid = [];
   try: number = 0;

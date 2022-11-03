@@ -1,16 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Aide
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Aide</ion-title>
-    </ion-toolbar>
+<ion-content class="bg" [fullscreen]="true">
+  <ion-header class="bg container-logo">
+    <img src="../../assets/F&G Motus.svg" alt="Logo">
   </ion-header>
+
+  <section class="container">
+    <h6>Aide</h6>
+    <h6 class="title">Régles du jeu</h6>
+    <div class="text-container">
+      <p>Ce jeu reprend exactement le même concept que le Wordle, mais en français.</p>
+      <p>A chaque parte, un mot de 5 lettres est choisi aléatoirement.<br>Vous devez le deviner en 6 essais.</p>
+      <p>À chaque essai, les lettres du mot que vous avez proposé changeront de couleur en fonction de à quel point vous êtes proche de le trouver.</p>
+    </div>
+    <div class="grid-circle">
+      <div class="circle" style="background-color: var(--ion-color-success-tint);">M</div>
+      <div class="circle">O</div>
+      <div class="circle" style="background-color: var(--custom-pink-color);">T</div>
+      <div class="circle">U</div>
+      <div class="circle" style="background-color: var(--ion-color-medium-shade);">S</div>
+    </div>
+    <div class="text-container">
+      <p>En vert, la lettre est dans le mot, à la bonne place. <br> En rose, la lettre est dans le mot, à la mauvaise place. <br> En gris, la lettre n'est présente pas dans le mot</p>
+    </div>
+  </section>
 
 </ion-content>

@@ -1,31 +1,27 @@
 <ion-content class="bg" [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title class="logo" size="large">
-        <img src="../../assets/F&G Motus.svg" alt="Logo">
-      </ion-title>
-    </ion-toolbar>
+  <ion-header class="bg container-logo">
+    <img src="../../assets/F&G Motus.svg" alt="Logo">
   </ion-header>
 
-  <section>
-      <h6>Statistiques</h6>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <div class="circle">{{ parties.value }}</div>
-            <p>Parties jouées</p>
-          </ion-col>
-          <ion-col>
-            <div class="circle">{{ wonGame.value 
-              }}</div>
-            <p>Parties gagnées</p>
-          </ion-col>
-          <ion-col>
-            <div class="circle">{{ try.value }}</div>
-            <p>Moyenne de tentatives</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+  <section class="container">
+    <h6>Statistiques</h6>
+    <ion-grid class="container">
+      <ion-row>
+        <ion-col>
+          <div class="circle">{{ parties.value }}</div>
+          <p>Parties jouées</p>
+        </ion-col>
+        <ion-col>
+          <div class="circle">{{ wonGame.value 
+            }}</div>
+          <p>Parties gagnées</p>
+        </ion-col>
+        <ion-col>
+          <div class="circle">{{ try.value }}</div>
+          <p>Moyenne de tentatives</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </section>
   <section>
     <h6>Derniers mots joués</h6>

@@ -1,0 +1,18 @@
+@import "../../theme/variables.scss";
+
+.container {
+    margin-top: 3rem
+}
+
+.text-container {
+    padding: 1rem 2rem;
+}
+p{
+    color: var(--ion-color-light-tint)
+}
+
+.grid-circle {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 2.5rem;
+}

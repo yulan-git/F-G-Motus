@@ -35,14 +35,24 @@ h6 {
     font-family: $typo-title;
     color: var(--custom-pink-color);
     text-align: center;
+};
+
+.title {
+    font-family: $typo-title;
+    color: var(--ion-color-success-tint);
+    text-align: center;
 }
+
 .bg, .header-collapse-condense ion-toolbar {
     --background: var(--ion-background-color, var(--ion-color-dark-shade));
-    margin-top: 2rem;
-}
-.logo {
-    padding-inline: 1.875rem !important;
 };
+
+.container-logo {
+    padding: 2rem 2rem 2rem 5rem;
+    box-shadow: var(--custom-pink-shadow);
+};
+
+
 .circle {
     width: 2.3rem;
     height: 2.3rem;
