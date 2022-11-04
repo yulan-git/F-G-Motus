@@ -17,7 +17,11 @@ describe('HomePage', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should generate a matrice with 6 rows', () => {
+    const debugElement = fixture.debugElement;
+    // How many buttons
+    const rows = debugElement.nativeElement.querySelectorAll('app-letters-grid')
+    
+    expect(rows.length).toEqual(6);
   });
 });

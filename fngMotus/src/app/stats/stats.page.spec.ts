@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+// import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+// import { IonicModule } from '@ionic/angular';
+// import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { StatsPage } from './stats.page';
+// import { StatsPage } from './stats.page';
 
-describe('StatsPage', () => {
-  let component: StatsPage;
-  let fixture: ComponentFixture<StatsPage>;
+// describe('StatsPage', () => {
+//   let component: StatsPage;
+//   let fixture: ComponentFixture<StatsPage>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [StatsPage],
-      imports: [IonicModule.forRoot(), ExploreContainerComponentModule]
-    }).compileComponents();
+//   beforeEach(waitForAsync(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [StatsPage],
+//       imports: [IonicModule.forRoot(), ExploreContainerComponentModule]
+//     }).compileComponents();
 
-    fixture = TestBed.createComponent(StatsPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+//     fixture = TestBed.createComponent(StatsPage);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

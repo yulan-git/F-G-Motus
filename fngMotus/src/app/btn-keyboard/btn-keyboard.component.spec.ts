@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 
 import { BtnKeyboardComponent } from './btn-keyboard.component';
@@ -18,7 +19,19 @@ describe('BtnKeyboardComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should get the letter to emit by the button', () => {
+    const debugElement = fixture.debugElement;
+    const button = debugElement.nativeElement.querySelector('.keyboard')
+    
+    component.btn ="A"
+    let content = component.btn;
+    fixture.detectChanges();
+    
+    spyOn(component.letter, 'emit');
+    button.click();
+    component.getLetterInput(content);
+    fixture.detectChanges();
+
+    expect(component.letter.emit).toHaveBeenCalledWith(content);
   });
 });
